@@ -110,7 +110,8 @@ Membuat Pembayaran upload gambar (Method POST) :
 <br>
 {url}/api/payment/ atau http://localhost:8000/api/payment
 <br>
-
+    -------------------------
+<br>
 Melihat Detail pembayaran (Method GET) :
 <br>
 {url}/api/payment/{id} atau http://localhost:8000/api/payment/id
