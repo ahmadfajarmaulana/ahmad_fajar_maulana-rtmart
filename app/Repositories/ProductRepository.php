@@ -9,7 +9,19 @@ class ProductRepository
 {
     public function paginate()
     {
-        $products = Product::with('category')->latest()->paginate(5);
+        $sort_by = request()->sort_by ?? "id";
+        $sort_by_order = request()->sort_by_order ?? "ASC";
+        $per_page = request()->per_page ?? 10;
+        $search = request()->search;
+
+        $products = Product::with('category')
+                    ->orderBy($sort_by, $sort_by_order)
+                    ->when($search, function($query) use ($search){
+                        $query
+                        ->Where('name', 'LIKE', '%' . $search . '%')
+                        ->orWhere('description', 'LIKE', '%' . $search . '%');
+                    })
+                    ->paginate($per_page);
 
         return $products;
     }
